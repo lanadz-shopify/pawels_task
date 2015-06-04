@@ -9,16 +9,25 @@ describe TextEvaluator do
 
   describe "#most_frequent" do
     context "text is given" do
-      it "finds the most frequent word" do
-        expect(subject.most_frequent).to eq("word4")
+      it "finds the most frequent word as array" do
+        expect(subject.most_frequent).to eq(["word4"])
+      end
+
+      it "returns all most frequent words if there are several maxes" do
+        input_text = "word1 word2 word3 word2 word3 word4 word3 word4 word4 word4 word3"
+        obj = described_class.new(input_text)
+        expect(obj.most_frequent).to contain_exactly("word4", "word3")
       end
     end
 
     context "text is empty" do
       let(:input_text){""}
 
-      it "returns empty string for empty text" do
-        expect(subject.most_frequent).to eq("")
+      it "returns empty array for empty text" do
+        expect(subject.most_frequent).to eq([])
+      end
+      it "returns empty array for spaces only string" do
+        expect(described_class.new('   ').most_frequent).to eq([])
       end
     end
 
