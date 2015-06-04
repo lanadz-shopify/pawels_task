@@ -16,12 +16,8 @@ class TextEvaluator
   end
 
   def group_words_by_count
-    split_words.inject({}) do |memo, word|
-      if memo[word]
-        memo[word] += 1
-      else
-        memo[word] = 1
-      end
+    split_words.inject(Hash.new(0)) do |memo, word|
+      memo[word] += 1
       memo
     end
   end
